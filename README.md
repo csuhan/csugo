@@ -9,16 +9,7 @@
 * 校车：校车查询
 ### Usage
 `
-//安装GO环境，安装beego
-
-......
-
-//复制到本地
-
 git clone https://github.com/csuhan/csugo.git
-
-//运行
-
 bee run
 `
 
