@@ -8,10 +8,14 @@
 * 招聘：招聘信息
 * 校车：校车查询
 ### Usage
-`
+```
 git clone https://github.com/csuhan/csugo.git
+
+cd csugo
+
 bee run
-`
+
+```
 
 ### Service
 
