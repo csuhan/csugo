@@ -18,5 +18,18 @@ bee run
 ```
 
 ### Service
+#### 成绩查询接口
+`
+/jwc/:id/:pwd/grade [get]
+`
+参数说明:
+```
+id:学号
+
+pwd:教务系统密码
+```
+返回内容说明
+
+
 
 ### System Structure
