@@ -1,6 +1,6 @@
 ### Introduction
 本项目是GO语言框架beego开发的简易API服务，提供中南大学校内的几个API接口服务，旨在练习GO WEB开发．
-演示站点:https//csugo.lovesmg.cn
+演示站点:[https//csugo.lovesmg.cn](https//csugo.lovesmg.cn)
 
 包括：
 * 教务：成绩查询
