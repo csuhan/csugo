@@ -30,12 +30,12 @@ type JwcGrade struct {
 }
 
 type Rank struct {
-	TotalScore, ClassRank, AverScore string
+	Term, TotalScore, ClassRank, AverScore string
 }
 
 type JwcRank struct {
 	User  JwcUser
-	Ranks []map[string]Rank
+	Ranks []Rank
 }
 
 type Class struct {
@@ -82,22 +82,22 @@ func (this *Jwc) Grade(user *JwcUser) ([]JwcGrade, error) {
 }
 
 //专业排名查询
-func (this *Jwc) Rank(user *JwcUser) ([]map[string]Rank, error) {
+func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 	response, err := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape("入学以来")))
 	if err != nil {
-		return []map[string]Rank{}, err
+		return []Rank{}, err
 	}
 	data, _ := ioutil.ReadAll(response.Body)
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
 	if err != nil {
-		return []map[string]Rank{}, utils.ERROR_SERVER
+		return []Rank{}, utils.ERROR_SERVER
 	}
 	terms := make([]string, 0)
 	doc.Find("#xqfw option").Each(func(i int, s *goquery.Selection) {
 		terms = append(terms, s.Text())
 	})
 
-	ranks := make([]map[string]Rank, 0)
+	ranks := make([]Rank, 0)
 	for _, term := range terms {
 		resp, _ := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape(term)))
 		data, _ := ioutil.ReadAll(resp.Body)
@@ -105,11 +105,12 @@ func (this *Jwc) Rank(user *JwcUser) ([]map[string]Rank, error) {
 		doc, _ := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
 		td := doc.Find("#dataList tr").Eq(1).Find("td")
 		rank := Rank{
+			Term:       term,
 			TotalScore: td.Eq(1).Text(),
 			ClassRank:  td.Eq(2).Text(),
 			AverScore:  td.Eq(3).Text(),
 		}
-		ranks = append(ranks, map[string]Rank{term: rank})
+		ranks = append(ranks, rank)
 	}
 	return ranks, nil
 }
@@ -139,7 +140,7 @@ func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, error) {
 			}
 			classes = append(classes, []Class{class})
 		} else if font.Size() == 6 { //两节课
-			class:=[]Class{
+			class := []Class{
 				Class{
 					ClassName: s.Nodes[0].FirstChild.Data,
 					Teacher:   font.Eq(0).Text(),
@@ -153,7 +154,7 @@ func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, error) {
 					Place:     font.Eq(5).Text(),
 				},
 			}
-			classes=append(classes,class)
+			classes = append(classes, class)
 		} else {
 			classes = append(classes, make([]Class, 1))
 		}
