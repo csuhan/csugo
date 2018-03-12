@@ -421,3 +421,53 @@
 2018/03/07 15:11:56.094 [I] [asm_amd64.s:2361] Admin server Running on :8088
 2018/03/07 15:11:58.566 [D] [server.go:2694] ::1 - - [07/Mar/2018 03:11:57] "GET /api/v1/job/1/1/10/1?token=csugo-token HTTP/1.1 200 0" 1.125747  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
 
+2018/03/07 15:50:54.184 [I] [asm_amd64.s:2361] http server Running on http://:8080
+2018/03/07 15:50:54.184 [I] [asm_amd64.s:2361] Admin server Running on :8088
+2018/03/07 15:51:02.801 [D] [server.go:2694] ::1 - - [07/Mar/2018 03:51:02] "GET /v1/api/jwc/grade/0107150104/575388385a HTTP/1.1 404 0" 0.000348  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:06:29.301 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:06:29] "GET /v1/api/jwc/grade/0107150104/575388385 HTTP/1.1 404 0" 0.001058  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:06:48.561 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:06:48] "GET /v1/api/jwc/0107150104/575388385a/grade HTTP/1.1 404 0" 0.000338  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:06:57.680 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:06:57] "GET /api/v1/jwc/0107150104/575388385a/grade HTTP/1.1 200 0" 0.000047  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:07:05.581 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:07:05] "GET /api/v1/jwc/0107150104/575388385a/grade?token=csugo-token HTTP/1.1 200 0" 0.154385  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:07:10.506 [D] [jwc.go:170] 账号或者密码错误,请重新输入 
+2018/03/07 16:07:10.507 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:07:10] "GET /api/v1/jwc/0107150104/575388385/grade?token=csugo-token HTTP/1.1 200 0" 0.045683  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:07:16.032 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:07:15] "GET /api/v1/jwc/0107150104/575388385a/grade?token=csugo-token HTTP/1.1 200 0" 0.126775  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:10:17.850 [D] [jwc.go:170] 账号或者密码错误,请重新输入 
+2018/03/07 16:10:17.850 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:10:17] "GET /api/v1/jwc/0107150104/575388385/grade?token=csugo-token HTTP/1.1 200 0" 0.053154  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:15:03.421 [D] [jwc.go:170] 账号或者密码错误,请重新输入 
+2018/03/07 16:15:03.422 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:15:03] "GET /api/v1/jwc/0107150104/575388385/class/0/2017-2018-2?token=csugo-token HTTP/1.1 200 0" 0.079537  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:15:08.863 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:15:08] "GET /api/v1/jwc/0107150104/575388385a/class/0/2017-2018-2?token=csugo-token HTTP/1.1 200 0" 0.162945  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:15:26.814 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:15:26] "GET / HTTP/1.1 200 0" 0.000338  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:15:28.025 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:15:28] "GET /v1/api/jwc/grade/0107150104/575388385 HTTP/1.1 404 0" 0.000283  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:15:44.490 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:15:44] "GET /api/v1/jwc/0107150104/575388385a/class/2017-2018-2/0?token=csugo-token HTTP/1.1 200 0" 0.166854  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:38:08.412 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:37:51] "GET /api/v1/jwc/0107150104/575388385a/rank?token=csugo-token HTTP/1.1 200 0" 16.761215  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:38:36.902 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:38:26] "GET /api/v1/jwc/0107150104/575388385a/rank?token=csugo-token HTTP/1.1 200 0" 10.811705  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:38:39.637 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:38:39] "GET / HTTP/1.1 200 0" 0.000356  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:40:57.662 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:40:57] "GET /api/v1/bus/search/%E6%A0%A1%E6%9C%AC%E9%83%A8%E5%9B%BE%E4%B9%A6%E9%A6%86%E5%89%8D%E5%9D%AA/%E6%96%B0%E6%A0%A1%E5%8C%BA%E8%89%BA%E6%9C%AF%E6%A5%BC/7:00-8:00 HTTP/1.1 200 0" 0.000028  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:41:05.156 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:41:05] "GET /api/v1/bus/search/%E6%A0%A1%E6%9C%AC%E9%83%A8%E5%9B%BE%E4%B9%A6%E9%A6%86%E5%89%8D%E5%9D%AA/%E6%96%B0%E6%A0%A1%E5%8C%BA%E8%89%BA%E6%9C%AF%E6%A5%BC/7:00-8:00?token=csugo-yoken HTTP/1.1 200 0" 0.000019  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 16:41:09.653 [D] [server.go:2694] ::1 - - [07/Mar/2018 04:41:09] "GET /api/v1/bus/search/%E6%A0%A1%E6%9C%AC%E9%83%A8%E5%9B%BE%E4%B9%A6%E9%A6%86%E5%89%8D%E5%9D%AA/%E6%96%B0%E6%A0%A1%E5%8C%BA%E8%89%BA%E6%9C%AF%E6%A5%BC/7:00-8:00?token=csugo-token HTTP/1.1 200 0" 0.238232  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 17:05:11.619 [D] [server.go:2694] ::1 - - [07/Mar/2018 05:05:11] "GET /api/v1/job/1/10/1?token=csugo-token HTTP/1.1 404 0" 0.000269  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 17:05:21.817 [D] [server.go:2694] ::1 - - [07/Mar/2018 05:05:20] "GET /api/v1/job/1/1/10/1?token=csugo-token HTTP/1.1 200 0" 1.533832  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 17:05:33.962 [D] [server.go:2694] ::1 - - [07/Mar/2018 05:05:32] "GET /api/v1/job/1/1/5/1?token=csugo-token HTTP/1.1 200 0" 1.021291  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/07 18:10:51.506 [I] [asm_amd64.s:2361] http server Running on http://:8080
