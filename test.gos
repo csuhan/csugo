@@ -1,0 +1,33 @@
+package main
+
+import (
+	"github.com/boltdb/bolt"
+	"fmt"
+)
+
+type WxUser struct{
+	Code string  `json:"code"`
+	OpenID string `json:"openid"`
+	SessionKey string `json:"session_key"`
+	WxToken string	`json:"wxtoken"`
+	SchoolID string `json:"schoolid"`
+	JwcPwd string	`json:"jwcpwd"`	//教务处
+	ItsPwd string 	`json:"itspwd"`	//信息门户
+	LibPwd string 	`json:"libpwd"`	//图书馆
+}
+
+
+func main() {
+	db,_:=bolt.Open("data/wxapp.db",0600,nil)
+	val:=""
+	db.View(func(tx *bolt.Tx) error {
+		val=string(tx.Bucket([]byte("wxuser")).Get([]byte("42038772f6bb7efb3eb13ccbbb5eef52")))
+		return nil
+	})
+	value:=""
+	db.View(func(tx *bolt.Tx) error {
+		value = string(tx.Bucket([]byte("wxuser")).Get([]byte("test42038772f6bb7efb3eb13ccbbb5eef52")))
+		return nil
+	})
+	fmt.Println(val)
+}

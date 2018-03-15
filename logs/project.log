@@ -1,0 +1,246 @@
+2018/03/15 02:48:54.370 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:49:00.894 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:49:09.751 [D] [server.go:2619] ::1 - - [15/Mar/2018 02:49:09] "GET /test HTTP/1.1 404 0" 0.001003  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/15 02:49:10.036 [D] [server.go:2619] ::1 - - [15/Mar/2018 02:49:10] "GET /favicon.ico HTTP/1.1 404 0" 0.001000 http://localhost:8080/test Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36
+
+2018/03/15 02:49:29.754 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:49:39.932 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 02:49:39.933 [C] [asm_amd64.s:509] Handler crashed with error can't find templatefile in the path:views/testcontroller/get.tpl
+2018/03/15 02:49:39.933 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 02:49:39.933 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 02:49:39.933 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/template.go:73
+2018/03/15 02:49:39.934 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:263
+2018/03/15 02:49:39.934 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:214
+2018/03/15 02:49:39.934 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:194
+2018/03/15 02:49:39.934 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:859
+2018/03/15 02:49:39.934 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 02:49:39.935 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 02:49:39.935 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 02:50:00.215 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:50:05.938 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:50:10.343 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:50:22.396 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 02:50:22.396 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 02:50:22.397 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 02:50:22.397 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 02:50:22.397 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 02:50:22.397 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 02:50:22.397 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 02:50:22.398 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:24
+2018/03/15 02:50:22.398 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 02:50:22.398 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:19
+2018/03/15 02:50:22.399 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 02:50:22.399 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 02:50:22.399 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 02:50:22.399 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 02:50:23.473 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 02:50:23.473 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 02:50:23.473 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 02:50:23.473 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 02:50:23.474 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 02:50:23.474 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 02:50:23.474 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 02:50:23.474 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:24
+2018/03/15 02:50:23.474 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 02:50:23.475 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:19
+2018/03/15 02:50:23.475 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 02:50:23.475 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 02:50:23.475 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 02:50:23.475 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 02:50:47.042 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:50:50.069 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 02:50:50.069 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 02:50:50.070 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 02:50:50.071 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 02:50:50.071 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:24
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:19
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 02:50:50.072 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 02:50:50.073 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 02:58:11.733 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:58:16.668 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:58:27.697 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 02:58:27.697 [C] [asm_amd64.s:509] Handler crashed with error can't find templatefile in the path:views/testcontroller/post.tpl
+2018/03/15 02:58:27.697 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 02:58:27.698 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 02:58:27.698 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/template.go:73
+2018/03/15 02:58:27.698 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:263
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:214
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/controller.go:194
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:859
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 02:58:27.699 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 02:58:58.701 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 02:59:26.896 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:00:57.619 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:01:55.959 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:02:04.357 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:02:04.357 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:02:04.358 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:02:04.358 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:02:04.358 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:02:04.359 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:02:04.359 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:02:04.359 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:26
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:02:04.360 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:02:49.760 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:02:56.062 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:02:56.062 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:02:56.062 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:02:56.063 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:02:56.063 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:02:56.063 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:02:56.063 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:02:56.063 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:27
+2018/03/15 03:02:56.064 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:02:56.064 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:02:56.064 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:02:56.065 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:02:56.065 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:02:56.065 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:03:10.079 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:03:26.986 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:03:26.987 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:03:26.987 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:03:26.988 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:03:26.988 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:03:26.988 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:03:26.989 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:03:26.989 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:27
+2018/03/15 03:03:26.989 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:03:26.989 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:03:26.989 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:03:26.990 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:03:26.990 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:03:26.990 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:04:10.355 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:04:15.318 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:04:15.318 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:04:15.318 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:04:15.319 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:04:15.319 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:04:15.319 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:04:15.319 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:04:15.319 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:28
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:04:15.320 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:04:39.944 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:04:42.674 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:04:42.674 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:04:42.675 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:04:42.675 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:04:42.675 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:04:42.675 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:04:42.675 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:28
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:04:42.676 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:05:17.817 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:05:21.242 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:05:21.242 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:05:21.242 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:25
+2018/03/15 03:05:21.243 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:05:21.244 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:05:21.244 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:05:21.244 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:05:21.244 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:05:21.244 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:05:52.896 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:05:56.097 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:05:56.097 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:05:56.097 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:05:56.098 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:05:56.098 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:05:56.098 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:05:56.098 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:05:56.098 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:25
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:20
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:05:56.099 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:06:26.400 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:06:49.138 [C] [asm_amd64.s:509] the request url is  /test
+2018/03/15 03:06:49.139 [C] [asm_amd64.s:509] Handler crashed with error runtime error: invalid memory address or nil pointer dereference
+2018/03/15 03:06:49.139 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:509
+2018/03/15 03:06:49.139 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:491
+2018/03/15 03:06:49.139 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/panic.go:63
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/signal_windows.go:161
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/bucket.go:286
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:24
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] F:/go/src/github.com/boltdb/bolt/db.go:598
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] F:/go/src/github.com/csuhan/csugo/controllers/test.go:19
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] F:/go/src/github.com/astaxie/beego/router.go:829
+2018/03/15 03:06:49.140 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:2619
+2018/03/15 03:06:49.141 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/net/http/server.go:1801
+2018/03/15 03:06:49.141 [C] [asm_amd64.s:509] C:/Program Files (x86)/GO/src/runtime/asm_amd64.s:2337
+2018/03/15 03:07:46.687 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:08:26.583 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:08:57.125 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:09:45.723 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:11:00.139 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 03:11:35.261 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 11:26:15.758 [D] [db.go:15] <nil> 
+2018/03/15 11:26:16.260 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 11:26:23.242 [D] [db.go:15] <nil> 
+2018/03/15 11:26:23.722 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 11:36:19.166 [D] [db.go:15] <nil> 
+2018/03/15 11:36:19.624 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 18:56:50.400 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 18:57:49.204 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:19:13.501 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:21:05.003 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:21:10.829 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:21:22.954 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:21:22] "POST /wxapp/login HTTP/1.1 200 0" 0.387634 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
+2018/03/15 21:21:52.914 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:21:58.562 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:22:05.811 [D] [wxuser.go:37] {"session_key":"6Bzn8u3yTIgjE0W9noLXVQ==","expires_in":7200,"openid":"oRTMa0R-pvJfvmNCQDbi7A1hJBPk"} <nil> 
+2018/03/15 21:22:05.889 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:22:05] "POST /wxapp/login HTTP/1.1 200 0" 0.344248 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
+2018/03/15 21:25:41.343 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:25:46.953 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:25:57.719 [D] [wxuser.go:37] <nil> 
+2018/03/15 21:25:57.813 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:25:57] "POST /wxapp/login HTTP/1.1 200 0" 0.413556 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
+2018/03/15 21:28:29.845 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:28:35.543 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:29:00.500 [D] [wxuser.go:53] unexpected end of JSON input 
+2018/03/15 21:29:00.584 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:29:00] "POST /wxapp/login HTTP/1.1 200 0" 0.381211 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
+2018/03/15 21:29:58.723 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:30:02.257 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:30:15.050 [D] [wxuser.go:49]  
+2018/03/15 21:30:15.056 [D] [wxuser.go:53] unexpected end of JSON input 
+2018/03/15 21:30:15.137 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:30:14] "POST /wxapp/login HTTP/1.1 200 0" 0.374268 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
+2018/03/15 21:42:28.778 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:42:34.708 [I] [asm_amd64.s:2337] http server Running on http://:8080
+2018/03/15 21:42:41.502 [D] [server.go:2619] ::1 - - [15/Mar/2018 09:42:41] "POST /wxapp/login HTTP/1.1 200 0" 0.393313 https://servicewechat.com/wx15bdcb0c5d873778/devtools/page-frame.html wechatdevtools appservice port/52845
+
