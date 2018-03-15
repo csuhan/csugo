@@ -5,14 +5,11 @@ import (
 	"encoding/json"
 	"github.com/csuhan/csugo/utils"
 	"github.com/astaxie/beego/httplib"
+	"github.com/csuhan/csugo/models"
+	"crypto/md5"
+	"encoding/hex"
 )
 
-type WxUser struct{
-	Code string  `json:"code"`
-	OpenID string `json:"openid"`
-	ExpiresIn int `json:"expires_in"`
-	SessionKey string `json:"session_key"`
-}
 type Status struct{
 	StateCode int
 	Error string
@@ -22,10 +19,11 @@ type WxUserController struct{
 	beego.Controller
 }
 
+//用户登录
 // @router /login [post]
 func (this *WxUserController)Login(){
 	//解析code
-	var user WxUser
+	var user models.WxUser
 	if err:=json.Unmarshal(this.Ctx.Input.RequestBody,&user);err!=nil{
 		this.Data["json"]=&Status{
 			StateCode:-1,
@@ -33,9 +31,9 @@ func (this *WxUserController)Login(){
 		}
 		this.ServeJSON()
 	}
+	//用code换取openid,seesion_key
 	appID:=beego.AppConfig.String("AppID")
 	appSecret:=beego.AppConfig.String("AppSecret")
-	//用code换取openid,seesion_key
 	req:=httplib.Get("https://api.weixin.qq.com/sns/jscode2session?appid="+appID+"&secret="+appSecret+"&js_code="+user.Code+"&grant_type=authorization_code")
 	if err:=req.ToJSON(&user);err!=nil{
 		this.Data["json"]=&Status{
@@ -44,6 +42,47 @@ func (this *WxUserController)Login(){
 		}
 		this.ServeJSON()
 	}
-	this.Data["json"]=user
+	//生成wxtoken
+	md5Token:=md5.New()
+	md5Token.Write([]byte(user.OpenID))
+	user.WxToken=hex.EncodeToString(md5Token.Sum(nil))
+
+	userTemp:=user; //临时复制对象
+
+	//判断用户是否存在
+	err:=user.Get()
+	//数据库错误
+	if err==utils.ERROR_SERVER{
+		this.Data["json"]=&Status{
+			StateCode:-1,
+			Error:err.Error(),
+		}
+		this.ServeJSON()
+	}
+	//用户不存在,插入用户
+	if err==utils.ERROR_NO_USER{
+		user=userTemp
+	}
+	//用户存在,仅更新session_key
+	if user.WxToken!=""{
+		user.SessionKey = userTemp.SessionKey
+
+	}
+	//更新数据
+	if err:=user.Insert();err!=nil{
+		this.Data["json"]=&Status{
+			StateCode:-1,
+			Error:utils.ERROR_DATA.Error(),
+		}
+		this.ServeJSON()
+	}
+	//输出
+	this.Data["json"]= struct {
+		Wxtoken string
+	}{
+		Wxtoken:user.WxToken,
+	}
 	this.ServeJSON()
 }
+
+
