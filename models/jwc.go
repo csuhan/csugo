@@ -53,7 +53,7 @@ func (this *Jwc) Grade(user *JwcUser) ([]JwcGrade, error) {
 	data, _ := ioutil.ReadAll(response.Body)
 	defer response.Body.Close()
 	if !strings.Contains(string(data), "学生个人考试成绩") {
-		return []JwcGrade{}, utils.ERROR_UNKOWN
+		return []JwcGrade{}, utils.ERROR_JWC
 	}
 	doc, err := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
 	if err != nil {
@@ -96,7 +96,7 @@ func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 	doc.Find("#xqfw option").Each(func(i int, s *goquery.Selection) {
 		terms = append(terms, s.Text())
 	})
-
+	err = nil
 	ranks := make([]Rank, 0)
 	for _, term := range terms {
 		resp, _ := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape(term)))
@@ -110,9 +110,12 @@ func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 			ClassRank:  td.Eq(2).Text(),
 			AverScore:  td.Eq(3).Text(),
 		}
+		if rank.TotalScore == "" {
+			err = utils.ERROR_JWC
+		}
 		ranks = append(ranks, rank)
 	}
-	return ranks, nil
+	return ranks, err
 }
 
 //课表查询
