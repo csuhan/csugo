@@ -47,4 +47,12 @@ func init() {
 			MethodParams:     param.Make(),
 			Params:           nil})
 
+	beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:WxUserController"] = append(beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:WxUserController"],
+		beego.ControllerComments{
+			Method:           "Login",
+			Router:           `/login`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams:     param.Make(),
+			Params:           nil})
+
 }
