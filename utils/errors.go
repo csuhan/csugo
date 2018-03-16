@@ -9,4 +9,5 @@ var (
 	ERROR_JWC     = errors.New("教务系统出了点问题,请重试")
 	ERROR_DATA    = errors.New("数据错误")
 	ERROR_NO_USER = errors.New("用户不存在")
+	ERROR_INPUT = errors.New("参数有误")
 )

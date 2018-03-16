@@ -14,6 +14,7 @@ func init() {
 				beego.NSInclude(&controllers.JwcController{}),
 				beego.NSInclude(&controllers.BusController{}),
 				beego.NSInclude(&controllers.JobController{}),
+				beego.NSInclude(&controllers.CetController{}),
 			),
 		)
 	wx:=beego.NewNamespace("/wxapp",
