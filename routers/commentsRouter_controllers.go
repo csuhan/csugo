@@ -63,6 +63,22 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:LibController"] = append(beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:LibController"],
+		beego.ControllerComments{
+			Method: "List",
+			Router: `/lib/list/:id/:pwd`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:LibController"] = append(beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:LibController"],
+		beego.ControllerComments{
+			Method: "Login",
+			Router: `/lib/login/:id/:pwd`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:WxUserController"] = append(beego.GlobalControllerRouter["github.com/csuhan/csugo/controllers:WxUserController"],
 		beego.ControllerComments{
 			Method: "Login",
