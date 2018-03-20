@@ -40,12 +40,27 @@ func (this *Job) List(Typeid, Pageindex, Pagesize, HasTime string) ([]Job, error
 		jobs = append(jobs, *this)
 	})
 	if HasTime == "1" {
+		ch := make(chan map[int]string)
+		places := []map[int]string{}
 		for k, j := range jobs {
-			resp, _ := httplib.Get(j.Link).String()
-			re := regexp.MustCompile("<p class=\"text-center place\">招聘地点：(.*)</p>")
-			temp := re.FindStringSubmatch(resp)
-			if len(temp) == 2 {
-				jobs[k].Place = temp[1]
+			go func(k int, j Job, ch chan map[int]string) {
+				resp, _ := httplib.Get(j.Link).String()
+				re := regexp.MustCompile("<p class=\"text-center place\">招聘地点：(.*)</p>")
+				temp := re.FindStringSubmatch(resp)
+				if len(temp) == 2 {
+					//jobs[k].Place = temp[1]
+					ch <- map[int]string{k: temp[1]}
+				}
+			}(k, j, ch)
+		}
+		for range jobs {
+			places = append(places, <-ch)
+		}
+		for i := 0; i < len(jobs); i++ {
+			for j := 0; j < len(places); j++ {
+				if v, ok := places[j][i]; ok {
+					jobs[i].Place = v
+				}
 			}
 		}
 	}
