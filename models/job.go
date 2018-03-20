@@ -2,10 +2,12 @@ package models
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/httplib"
 	"github.com/csuhan/csugo/utils"
 	"regexp"
 	"strings"
+	"time"
 )
 
 const JOB_BASE_URL = "http://jobsky.csu.edu.cn"
@@ -48,13 +50,19 @@ func (this *Job) List(Typeid, Pageindex, Pagesize, HasTime string) ([]Job, error
 				re := regexp.MustCompile("<p class=\"text-center place\">招聘地点：(.*)</p>")
 				temp := re.FindStringSubmatch(resp)
 				if len(temp) == 2 {
-					//jobs[k].Place = temp[1]
 					ch <- map[int]string{k: temp[1]}
+				} else {
+					ch <- map[int]string{k: ""}
 				}
 			}(k, j, ch)
 		}
 		for range jobs {
-			places = append(places, <-ch)
+			select {
+			case place := <-ch:
+				places = append(places, place)
+			case <-time.After(5 * time.Second):
+				beego.Debug("time out:", places)
+			}
 		}
 		for i := 0; i < len(jobs); i++ {
 			for j := 0; j < len(places); j++ {
