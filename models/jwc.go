@@ -97,23 +97,34 @@ func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 		terms = append(terms, s.Text())
 	})
 	err = nil
-	ranks := make([]Rank, 0)
-	for _, term := range terms {
-		resp, _ := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape(term)))
-		data, _ := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
-		doc, _ := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
-		td := doc.Find("#dataList tr").Eq(1).Find("td")
-		rank := Rank{
-			Term:       term,
-			TotalScore: td.Eq(1).Text(),
-			ClassRank:  td.Eq(2).Text(),
-			AverScore:  td.Eq(3).Text(),
+	ranks := make([]Rank, len(terms))
+	ch := make(chan map[int]Rank)
+	chanRanks := []map[int]Rank{}
+	for key, term := range terms {
+		go func(key int, term string, ch chan map[int]Rank) {
+			resp, _ := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape(term)))
+			data, _ := ioutil.ReadAll(resp.Body)
+			resp.Body.Close()
+			doc, _ := goquery.NewDocumentFromReader(strings.NewReader(string(data)))
+			td := doc.Find("#dataList tr").Eq(1).Find("td")
+			rank := Rank{
+				Term:       term,
+				TotalScore: td.Eq(1).Text(),
+				ClassRank:  td.Eq(2).Text(),
+				AverScore:  td.Eq(3).Text(),
+			}
+			ch <- map[int]Rank{key: rank}
+		}(key, term, ch)
+	}
+	for range terms {
+		chanRanks = append(chanRanks, <-ch)
+	}
+	for i := 0; i < len(terms); i++ {
+		for j := 0; j < len(chanRanks); j++ {
+			if v, ok := chanRanks[j][i]; ok {
+				ranks[i] = v
+			}
 		}
-		if rank.TotalScore == "" {
-			err = utils.ERROR_JWC
-		}
-		ranks = append(ranks, rank)
 	}
 	return ranks, err
 }
