@@ -53,9 +53,27 @@ func GetNewsList(PageID string) (NewsList, error) {
 			Dept:      strings.Trim(tds.Eq(5).Text(), "\n "),
 			ViewCount: strings.Trim(tds.Eq(6).Text(), "\n "),
 			Time:      strings.Trim(tds.Eq(7).Text(), "\n "),
-			Link:      NEWSARTICLE_URL + link,
+			Link:      link,
 		})
 	})
 	news.News = newsItems
-	return NewsList{}, nil
+	return news, nil
+}
+
+func GetNewsContent(link string) (string, error) {
+	req := httplib.Get(NEWSARTICLE_URL + link)
+	req.Header("x-forwarded-for", "202.197.71.84") //模仿校内登录
+	resp, err := req.String()
+	if err != nil {
+		return "", utils.ERROR_SERVER
+	}
+	doc, err := goquery.NewDocumentFromReader(strings.NewReader(resp))
+	if err != nil {
+		return "", utils.ERROR_SERVER
+	}
+	res, err := doc.Find("table").Eq(2).Find("tr").Eq(2).Html()
+	if err != nil {
+		return "", utils.ERROR_SERVER
+	}
+	return res, nil
 }
