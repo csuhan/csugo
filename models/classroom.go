@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
+	"github.com/csuhan/csugo/utils"
 	"strings"
 )
 
@@ -90,4 +91,27 @@ func GetFreeWeekTime(Term, Week, XQ, JXL string) ([]ClassRoom, error) {
 	}
 	db.Close()
 	return classrooms, nil
+}
+
+//根据校区获取教学楼
+func GetBuildingsByXQ(XQ string) ([]JXL, error) {
+	db, err := getDB()
+	if err != nil {
+		return []JXL{}, utils.ERROR_SERVER
+	}
+	jxls := []JXL{}
+	db.View(func(tx *bolt.Tx) error {
+		cjxls := tx.Bucket([]byte(BURKETCLASSROOM)).Cursor()
+		prefix := XQ + ":"
+		for k, v := cjxls.Seek([]byte(prefix)); bytes.HasPrefix(k, []byte(prefix)); k, v = cjxls.Next() {
+			cls := []ClassRoom{}
+			json.Unmarshal(v, &cls)
+			if len(cls) != 0 {
+				jxls = append(jxls, cls[0].JXL)
+			}
+		}
+		return nil
+	})
+	db.Close()
+	return jxls, nil
 }
