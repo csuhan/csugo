@@ -57,3 +57,18 @@ func (this *ClassRoomController) GetJXL() {
 	}
 	this.ServeJSON()
 }
+
+// @router /classroom/jxls [get]
+func (this *ClassRoomController) GetJXLS() {
+	jxls := models.GetBuildings()
+	this.Data["json"] = struct {
+		StateCode int
+		Error     string
+		JXLS      map[string][]models.JXL
+	}{
+		StateCode: 1,
+		Error:     "",
+		JXLS:      jxls,
+	}
+	this.ServeJSON()
+}

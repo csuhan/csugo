@@ -115,3 +115,12 @@ func GetBuildingsByXQ(XQ string) ([]JXL, error) {
 	db.Close()
 	return jxls, nil
 }
+
+//获取所有教学楼
+func GetBuildings() map[string][]JXL {
+	jxls := map[string][]JXL{}
+	for _, XQ := range XQS {
+		jxls[XQ.ID], _ = GetBuildingsByXQ(XQ.ID)
+	}
+	return jxls
+}
