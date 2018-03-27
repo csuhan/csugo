@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 )
 
@@ -130,14 +131,14 @@ func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 }
 
 //课表查询
-func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, error) {
+func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, string, error) {
 	if Week == "0" {
 		Week = ""
 	}
 	body := strings.NewReader("zc=" + url.QueryEscape(Week) + "&xnxq01id=" + url.QueryEscape(Term) + "&sfFD=1")
 	response, err := this.LogedRequest(user, "POST", JWC_CLASS_URL, body)
 	if err != nil {
-		return [][]Class{}, err
+		return [][]Class{}, "", err
 	}
 	data, _ := ioutil.ReadAll(response.Body)
 	defer response.Body.Close()
@@ -174,7 +175,11 @@ func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, error) {
 		}
 	})
 
-	return classes, nil
+	//每学期开学时间
+	temp := doc.Find("table#kbtable").Eq(1).Find("td").Eq(0).Text()
+	startWeekDay := regexp.MustCompile("第1周\u00a0(.*)日至").FindStringSubmatch(temp)
+
+	return classes, startWeekDay[1], nil
 }
 
 //登录后请求

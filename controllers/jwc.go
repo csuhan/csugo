@@ -67,7 +67,7 @@ func (this *JwcController) Class() {
 	week := this.Ctx.Input.Param(":week")
 	term := this.Ctx.Input.Param(":term")
 	jwc := &models.Jwc{}
-	class, err := jwc.Class(user, week, term)
+	class, startWeekDay, err := jwc.Class(user, week, term)
 	stateCode := 1
 	errorstr := ""
 	if err != nil {
@@ -75,13 +75,15 @@ func (this *JwcController) Class() {
 		errorstr = err.Error()
 	}
 	this.Data["json"] = struct {
-		StateCode int
-		Error     string
-		Class     [][]models.Class
+		StateCode    int
+		Error        string
+		Class        [][]models.Class
+		StartWeekDay string
 	}{
-		StateCode: stateCode,
-		Error:     errorstr,
-		Class:     class,
+		StateCode:    stateCode,
+		Error:        errorstr,
+		Class:        class,
+		StartWeekDay: startWeekDay,
 	}
 	this.ServeJSON()
 }
