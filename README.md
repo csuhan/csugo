@@ -1,24 +1,39 @@
 ### Introduction
-本项目是GO语言框架beego开发的简易API服务，提供中南大学校内的几个API接口服务，旨在练习GO WEB开发．
+本项目是基于GO语言Web框架beego开发的API服务，提供中南大学校内聚合查询API接口服务，目前已用在微信小程序[we中南](https://lovesmg.cn/2018/04/25/wecsu.html)中,旨在练习GO WEB开发.
 演示站点:[https://csugo.lovesmg.cn](https://csugo.lovesmg.cn)
+功能列表：
+1. 成绩查询
+2. 排名查询
+3. 考试查询(TODO)
+4. 图书续借
+5. 图书查询(TODO)
+6. 自习教室查询
+7. 校车查询
+8. 招聘查询
+9. 四六级查询
+10. 计算机等级查询(TODO)
+11. 课表查询
+12. 校内通知查询
 
-包括：
-* 教务：成绩查询
-* 教务：排名查询
-* 教务：课表查询
-* 招聘：招聘信息
-* 校车：校车查询
 ### Usage
-```
+> 请保证已经安装了beego和bee,查看[beego安装教程](https://beego.me/quickstart)
+
+```shell
 git clone https://github.com/csuhan/csugo.git
-
 cd csugo
-
 bee run
-
 ```
+
+### Keys
+本项目基本思路是爬去校内网站信息,经过格式化后输出为json格式,为客户端提供便捷的API接口,具体实现过程可以参见代码实现.
+以成绩查询为例,具体实现思路:
+1. 模拟登陆[http://csujwc.its.csu.edu.cn/jsxsd/](http://csujwc.its.csu.edu.cn/jsxsd/)(此地址绕过了验证码)
+2. 抓取原始成绩页[http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list](http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list)
+3. 解析网页,将成绩信息解析出来,转为GO的struct,然后格式化输出为json格式
+4. 对应API服务路由https://csugo.lovesmg.cn/api/v1/jwc/:id/:pwd/grade
 
 ### Service
+
 > 请在请求参数后加上token=csugo-token
 
 如成绩查询:
@@ -27,10 +42,10 @@ bee run
 
 在请求地址结尾需要添加token
 
+下面是部分接口数据示例
+
 #### 成绩查询接口
-`
-youwebsite/api/v1/jwc/:id/:pwd/grade [get]
-`
+`youwebsite/api/v1/jwc/:id/:pwd/grade [get]`
 
 参数说明:
 
@@ -198,68 +213,30 @@ pwd:教务系统密码
   "Error": "",
   "Rank": [
     {
-      "入学以来": {
-        "TotalScore": "139.5",
-        "ClassRank": "7",
-        "AverScore": "85.58"
-      }
+      "Term": "入学以来",
+      "TotalScore": "139.5",
+      "ClassRank": "7",
+      "AverScore": "85.58"
     },
     {
-      "2017-2018-1": {
-        "TotalScore": "23.5",
-        "ClassRank": "6",
-        "AverScore": "90.66"
-      }
+      "Term": "2017-2018-1",
+      "TotalScore": "23.5",
+      "ClassRank": "6",
+      "AverScore": "90.66"
     },
     {
-      "2017": {
-        "TotalScore": "23.5",
-        "ClassRank": "6",
-        "AverScore": "90.66"
-      }
+      "Term": "2017",
+      "TotalScore": "23.5",
+      "ClassRank": "6",
+      "AverScore": "90.66"
     },
     {
-      "2016-2017-2": {
-        "TotalScore": "28",
-        "ClassRank": "6",
-        "AverScore": "86.88"
-      }
+      "Term": "2016-2017-2",
+      "TotalScore": "28",
+      "ClassRank": "6",
+      "AverScore": "86.88"
     },
-    {
-      "2016-2017-1": {
-        "TotalScore": "31",
-        "ClassRank": "7",
-        "AverScore": "86.63"
-      }
-    },
-    {
-      "2016": {
-        "TotalScore": "59",
-        "ClassRank": "7",
-        "AverScore": "86.75"
-      }
-    },
-    {
-      "2015-2016-2": {
-        "TotalScore": "31",
-        "ClassRank": "5",
-        "AverScore": "83.26"
-      }
-    },
-    {
-      "2015-2016-1": {
-        "TotalScore": "26",
-        "ClassRank": "14",
-        "AverScore": "81.12"
-      }
-    },
-    {
-      "2015": {
-        "TotalScore": "57",
-        "ClassRank": "8",
-        "AverScore": "82.28"
-      }
-    }
+	...省略部分内容
   ]
 }
 ```
@@ -322,7 +299,7 @@ time:出发时间
 ```
 #### 招聘查询
 
-`youwebsite/api/v1/job/:type/:pageindex/:pagesize/:hastime [get]`
+`youwebsite/api/v1/job/:typeid/:pageindex/:pagesize/:hastime [get]`
 
 参数说明：
 ```
@@ -356,55 +333,66 @@ hastime:是否包含招聘会时间：0-不包含,1-包含(会大大增加请求
       "Time": "2018.03.27",
       "Place": "中南大学校本部科教南楼 407"
     },
-    {
-      "Link": "http://jobsky.csu.edu.cn/Home/ArticleDetails/10209",
-      "Title": "上海泛微网络科技股份有限公司",
-      "Time": "2018.03.23",
-      "Place": "中南大学校本部科教南楼 206"
-    },
-    {
-      "Link": "http://jobsky.csu.edu.cn/Home/ArticleDetails/10204",
-      "Title": "北京新七天电子商务技术股份有限公司",
-      "Time": "2018.03.22",
-      "Place": "中南大学校本部科教北楼 207"
-    }
+	...省略部分内容
   ]
 }
 ```
+
 ### System Structure
+项目采用beego的MVC模式,由于仅提供API服务,因此没有包含视图,每一个功能为一个模块,如controllers/cet.go和models/cet.go组成cet模块.
 
 项目组成:
 
 ```
 ├── conf
-│   └── app.conf 配置文件
-├── controllers　控制器
-│   ├── bus.go　校车
-│   ├── default.go　首页
-│   ├── error.go　错误处理
-│   ├── job.go　招聘
-│   └── jwc.go　教务
-├── logs　日志
+│   └── app.conf
+├── controllers
+│   ├── bus.go
+│   ├── cet.go
+│   ├── classroom.go
+│   ├── dangke.go
+│   ├── default.go
+│   ├── error.go
+│   ├── job.go
+│   ├── jwc.go
+│   ├── lib.go
+│   ├── news.go
+│   └── wxuser.go
+├── csugo
+├── csugo.tar.gz
+├── data
+│   ├── classes.db //自习教室数据库
+│   └── wxapp.db //用户信息数据库
+├── logs
+│   ├── project.2018-04-24.log
 │   └── project.log
-├── main.go　入口文件
-├── middleware　中间件
-│   └── apiauth.go　token认证
-├── models　模型
-│   ├── bus.go　校车
-│   ├── job.go　招聘
-│   └── jwc.go　教务
-├── routers 路由
+├── main.go
+├── middleware
+│   └── apiauth.go
+├── models
+│   ├── bus.go
+│   ├── cet.go
+│   ├── classroom.go
+│   ├── dangke.go
+│   ├── db.go
+│   ├── job.go
+│   ├── jwc.go
+│   ├── lib.go
+│   ├── news.go
+│   └── wxuser.go
+├── README.md
+├── routers
 │   ├── commentsRouter_controllers.go
 │   └── router.go
-├── static　静态文件
-│   ├── css
-│   ├── img
+├── static
 │   └── js
-├── tests　测试
+│       └── reload.min.js
+├── tests
 │   └── default_test.go
 ├── utils
-│   └── errors.go
-└── views　视图
+│   ├── errors.go
+│   └── urls.go
+└── views
     ├── errors
     │   └── 404.html
     └── index.html
