@@ -27,10 +27,12 @@ bee run
 ### Keys
 本项目基本思路是爬去校内网站信息,经过格式化后输出为json格式,为客户端提供便捷的API接口,具体实现过程可以参见代码实现.
 以成绩查询为例,具体实现思路:
-1. 模拟登陆[http://csujwc.its.csu.edu.cn/jsxsd/](http://csujwc.its.csu.edu.cn/jsxsd/)(此地址绕过了验证码)
-2. 抓取原始成绩页[http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list](http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list)
-3. 解析网页,将成绩信息解析出来,转为GO的struct,然后格式化输出为json格式
+1. 通过统一身份认证(CAS)入口`https://ca.csu.edu.cn/authserver/login`完成学号/密码登录。后台按照前端`encrypt.js`的逻辑使用AES-CBC(随机前缀+随机IV)对口令加密,并提交`lt/execution`等隐藏表单字段,拿到跳转后的教务系统会话cookie。
+2. 基于CAS返回的`JSESSIONID`访问[http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list](http://csujwc.its.csu.edu.cn/jsxsd/kscj/yscjcx_list)获得原始成绩HTML。
+3. 使用goquery解析网页,将成绩信息解析出来,转为GO的struct,然后格式化输出为json格式。
 4. 对应API服务路由https://csugo.lovesmg.cn/api/v1/jwc/:id/:pwd/grade
+
+> 注意: 若教务系统针对某账号要求验证码,需要保证统一认证能够正常通过(目前服务端未内置验证码识别)。
 
 ### Service
 

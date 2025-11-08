@@ -1,13 +1,20 @@
 package models
 
 import (
+	"bytes"
+	"crypto/aes"
+	"crypto/cipher"
+	"crypto/rand"
 	"encoding/base64"
+	"errors"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/astaxie/beego"
 	"github.com/csuhan/csugo/utils"
 	"io"
 	"io/ioutil"
+	"math/big"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"regexp"
 	"strings"
@@ -18,6 +25,9 @@ const JWC_LOGIN_URL = JWC_BASE_URL + "xk/LoginToXk"
 const JWC_GRADE_URL = JWC_BASE_URL + "kscj/yscjcx_list"
 const JWC_RANK_URL = JWC_BASE_URL + "kscj/zybm_cx"
 const JWC_CLASS_URL = JWC_BASE_URL + "xskb/xskb_list.do"
+const CAS_LOGIN_URL = "https://ca.csu.edu.cn/authserver/login?service=http%3A%2F%2Fcsujwc.its.csu.edu.cn%2Fsso.jsp"
+
+const aesCharSet = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678"
 
 type JwcUser struct {
 	Id, Pwd, Name, College, Margin, Class string
@@ -45,7 +55,7 @@ type Class struct {
 
 type Jwc struct{}
 
-//成绩查询
+// 成绩查询
 func (this *Jwc) Grade(user *JwcUser) ([]JwcGrade, error) {
 	response, err := this.LogedRequest(user, "GET", JWC_GRADE_URL, nil)
 	if err != nil {
@@ -82,7 +92,7 @@ func (this *Jwc) Grade(user *JwcUser) ([]JwcGrade, error) {
 	return Grades, nil
 }
 
-//专业排名查询
+// 专业排名查询
 func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 	response, err := this.LogedRequest(user, "POST", JWC_RANK_URL, strings.NewReader("xqfw="+url.QueryEscape("入学以来")))
 	if err != nil {
@@ -130,7 +140,7 @@ func (this *Jwc) Rank(user *JwcUser) ([]Rank, error) {
 	return ranks, err
 }
 
-//课表查询
+// 课表查询
 func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, string, error) {
 	if Week == "0" {
 		Week = ""
@@ -182,55 +192,142 @@ func (this *Jwc) Class(user *JwcUser, Week, Term string) ([][]Class, string, err
 	return classes, startWeekDay[1], nil
 }
 
-//登录后请求
+// 登录后请求
 func (this *Jwc) LogedRequest(user *JwcUser, Method, Url string, Params io.Reader) (*http.Response, error) {
-	//登录系统
-	cookies, err := this.Login(user)
+	client, err := this.Login(user)
 	if err != nil {
 		beego.Debug(err)
 		return nil, err
 	}
-	//查询分数
 	Req, err := http.NewRequest(Method, Url, Params)
-	Req.Header.Add("content-type", "application/x-www-form-urlencoded")
 	if err != nil {
 		return nil, utils.ERROR_SERVER
 	}
-	for _, cookie := range cookies {
-		Req.AddCookie(cookie)
-	}
-	return http.DefaultClient.Do(Req)
+	Req.Header.Add("content-type", "application/x-www-form-urlencoded")
+	return client.Do(Req)
 }
 
-//教务系统登录
-func (this *Jwc) Login(user *JwcUser) ([]*http.Cookie, error) {
-	//获取cookie
-	response, err := http.Get(JWC_BASE_URL)
+// 教务系统登录
+func (this *Jwc) Login(user *JwcUser) (*http.Client, error) {
+	jar, _ := cookiejar.New(nil)
+	client := &http.Client{Jar: jar}
+	resp, err := client.Get(CAS_LOGIN_URL)
 	if err != nil {
 		return nil, utils.ERROR_SERVER
 	}
-	cookies := response.Cookies()
-	//账号密码拼接字符
-	encoded := base64.StdEncoding.EncodeToString([]byte(user.Id)) + "%%%" + base64.StdEncoding.EncodeToString([]byte(user.Pwd))
-	Req, err := http.NewRequest("POST", JWC_LOGIN_URL, strings.NewReader("encoded="+url.QueryEscape(encoded)))
+	body, err := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
 	if err != nil {
 		return nil, utils.ERROR_SERVER
 	}
-	//添加cookie
-	for _, cookie := range cookies {
-		Req.AddCookie(cookie)
-	}
-	Req.Header.Add("content-type", "application/x-www-form-urlencoded")
-	response, err = http.DefaultClient.Do(Req)
+	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(body))
 	if err != nil {
 		return nil, utils.ERROR_SERVER
 	}
-	body, _ := ioutil.ReadAll(response.Body)
-	defer response.Body.Close()
-	//登陆成功
-	if strings.Contains(string(body), "我的桌面") {
-		return cookies, nil
+	formValues, err := this.buildCASForm(user, doc)
+	if err != nil {
+		return nil, err
 	}
-	//账号或密码错误
-	return nil, utils.ERROR_ID_PWD
+	loginReq, err := http.NewRequest("POST", CAS_LOGIN_URL, strings.NewReader(formValues.Encode()))
+	if err != nil {
+		return nil, utils.ERROR_SERVER
+	}
+	loginReq.Header.Set("content-type", "application/x-www-form-urlencoded")
+	resp, err = client.Do(loginReq)
+	if err != nil {
+		return nil, utils.ERROR_SERVER
+	}
+	defer resp.Body.Close()
+	_, _ = ioutil.ReadAll(resp.Body)
+	if resp.Request == nil || !strings.Contains(resp.Request.URL.Host, "csujwc.its.csu.edu.cn") {
+		return nil, utils.ERROR_ID_PWD
+	}
+	return client, nil
+}
+
+func (this *Jwc) buildCASForm(user *JwcUser, doc *goquery.Document) (url.Values, error) {
+	lt := strings.TrimSpace(doc.Find("input[name=lt]").AttrOr("value", ""))
+	execution := strings.TrimSpace(doc.Find("input[name=execution]").AttrOr("value", ""))
+	eventId := strings.TrimSpace(doc.Find("input[name=_eventId]").AttrOr("value", "submit"))
+
+	// 明确选择用户名密码登录方式的 cllt 和 dllt
+	// 页面上有多个 cllt 字段对应不同登录方式（fidoLogin, dynamicLogin, userNameLogin, qrLogin）
+	// 我们需要使用 userNameLogin 进行用户名密码登录
+	cllt := strings.TrimSpace(doc.Find("input[name=cllt][value=userNameLogin]").AttrOr("value", "userNameLogin"))
+	dllt := strings.TrimSpace(doc.Find("input[name=dllt]").AttrOr("value", "generalLogin"))
+
+	salt := strings.TrimSpace(doc.Find("input#pwdEncryptSalt").AttrOr("value", ""))
+	if salt == "" || execution == "" {
+		return nil, utils.ERROR_SERVER
+	}
+	encryptedPwd, err := encryptPassword(user.Pwd, salt)
+	if err != nil {
+		return nil, utils.ERROR_SERVER
+	}
+	form := url.Values{}
+	form.Set("username", user.Id)
+	form.Set("password", encryptedPwd)
+	form.Set("passwordText", "")
+	form.Set("lt", lt)
+	form.Set("execution", execution)
+	form.Set("_eventId", eventId)
+	form.Set("cllt", cllt)
+	form.Set("dllt", dllt)
+	return form, nil
+}
+
+func encryptPassword(password, salt string) (string, error) {
+	if salt == "" {
+		return "", errors.New("empty salt")
+	}
+	prefix, err := randomString(64)
+	if err != nil {
+		return "", err
+	}
+	iv, err := randomString(16)
+	if err != nil {
+		return "", err
+	}
+	plain := []byte(prefix + password)
+	plain = pkcs7Pad(plain, aes.BlockSize)
+	block, err := aes.NewCipher([]byte(salt))
+	if err != nil {
+		return "", err
+	}
+	mode := cipher.NewCBCEncrypter(block, []byte(iv))
+	ciphertext := make([]byte, len(plain))
+	mode.CryptBlocks(ciphertext, plain)
+	return base64.StdEncoding.EncodeToString(ciphertext), nil
+}
+
+func pkcs7Pad(data []byte, blockSize int) []byte {
+	padding := blockSize - len(data)%blockSize
+	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
+	return append(data, padtext...)
+}
+
+func randomString(length int) (string, error) {
+	if length <= 0 {
+		return "", nil
+	}
+	var builder strings.Builder
+	for i := 0; i < length; i++ {
+		idx, err := randInt(len(aesCharSet))
+		if err != nil {
+			return "", err
+		}
+		builder.WriteByte(aesCharSet[idx])
+	}
+	return builder.String(), nil
+}
+
+func randInt(max int) (int, error) {
+	if max <= 0 {
+		return 0, errors.New("invalid max")
+	}
+	n, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
+	if err != nil {
+		return 0, err
+	}
+	return int(n.Int64()), nil
 }
